@@ -11,4 +11,7 @@
     <string name="location">Location</string>
     <string name="help">Help</string>
     <string name="hint_search_the_song_the_singer">Search the song, the singer...</string>
+    <string name="m_b_i_h_t">Mã số:</string>
+    <string name="save_online">Save online</string>
+    <string name="download">Download</string>
 </resources>

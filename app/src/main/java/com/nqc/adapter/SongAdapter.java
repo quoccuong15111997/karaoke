@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.nqc.impl.ItemClick;
+import com.nqc.impl.LikeClick;
 import com.nqc.model.Song;
 import com.nqc.tracuukaraoke.R;
 
@@ -19,11 +20,13 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder>{
     private Context context;
     private ArrayList<Song> data;
     ItemClick itemClick;
+    LikeClick likeClick;
 
-    public SongAdapter(Context context, ArrayList<Song> data, ItemClick itemClick){
+    public SongAdapter(Context context, ArrayList<Song> data, ItemClick itemClick, LikeClick likeClick){
         this.context=context;
         this.data=data;
         this.itemClick=itemClick;
+        this.likeClick=likeClick;
     }
 
     @NonNull
@@ -88,6 +91,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder>{
                        imgLike.setImageResource(R.drawable.ic_heart);
                        song.setYeuThich(0);
                    }
+                   likeClick.likeIsClicked(getAdapterPosition());
                }
            });
         }

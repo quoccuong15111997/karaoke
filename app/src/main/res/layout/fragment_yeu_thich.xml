@@ -1,13 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".TimKiemFragment">
-
-    <TextView
+    <RelativeLayout
+        android:id="@+id/rl_tool_bar_top"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Yêu thích" />
+        android:layout_height="@dimen/pd50"
+        android:background="@color/colorMBlue"
+        android:outlineProvider="bounds">
+        <TextView
+        android:id="@+id/txtTile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bài hát yêu thích"
+        android:layout_marginLeft="5dp"
+        android:textColor="@color/text_white"
+        android:textStyle="bold"
+        android:textSize="18sp"/>
+        <TextView
+            android:id="@+id/txtSoBaiHat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="4 bài"
+            android:layout_marginStart="@dimen/w5"
+            android:layout_marginLeft="5dp"
+            android:textColor="@color/text_white"
+            android:layout_below="@id/txtTile"
+            android:textStyle="bold"
+            android:textSize="18sp"/>
+        <Button
+            android:layout_marginLeft="40dp"
+            android:id="@+id/btnSaveOnline"
+            android:layout_toRightOf="@id/txtTile"
+            android:layout_width="wrap_content"
+            android:textColor="@color/colorMBlue"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border_button_a"
+            android:text="@string/save_online"/>
+        <Button
+            android:id="@+id/btnDownload"
+            android:layout_toRightOf="@id/btnSaveOnline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorMBlue"
+            android:background="@drawable/border_button_a"
+            android:text="@string/download"/>
+    </RelativeLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recySongLike"
+        android:layout_width="match_parent"
+        android:layout_margin="3dp"
+        android:layout_height="650dp">
+    </android.support.v7.widget.RecyclerView>
 
-</FrameLayout>
+</LinearLayout>
