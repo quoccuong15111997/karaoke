@@ -20,6 +20,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.nqc.adapter.SongAdapter;
 import com.nqc.impl.ItemClick;
 import com.nqc.impl.LikeClick;
@@ -38,6 +40,7 @@ public class TimKiemFragment extends Fragment {
     public static SQLiteDatabase database = null;
     ArrayList<Song> dsSong;
     SongAdapter songAdapter;
+    DatabaseReference mData;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -63,6 +66,7 @@ public class TimKiemFragment extends Fragment {
     }
 
     private void addControls() {
+        mData= FirebaseDatabase.getInstance().getReference();
         dsSong= new ArrayList<>();
         edtInput=view.findViewById(R.id.edtInput);
         imgSearch=view.findViewById(R.id.imgSeach);

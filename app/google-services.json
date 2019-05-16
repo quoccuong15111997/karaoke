@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "939032259083",
+    "firebase_url": "https://tracuukaraoke-4a625.firebaseio.com",
+    "project_id": "tracuukaraoke-4a625",
+    "storage_bucket": "tracuukaraoke-4a625.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:939032259083:android:5a05a090014a34f4",
+        "android_client_info": {
+          "package_name": "com.nqc.tracuukaraoke"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "939032259083-m804l8n94eprn3mnho956save8f36dng.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nqc.tracuukaraoke",
+            "certificate_hash": "358e528a40bb7a4b0bcfcbd7f81d60ab1c1526c6"
+          }
+        },
+        {
+          "client_id": "939032259083-269e8k9gic3gdvrpe7gnemi3i83sr3so.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADDMeOQHDielXMC4d3W8jeq0eQyxOPXMc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "939032259083-269e8k9gic3gdvrpe7gnemi3i83sr3so.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

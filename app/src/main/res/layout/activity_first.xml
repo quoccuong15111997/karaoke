@@ -5,14 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/colorPrimaryDark"
+    android:background="@drawable/ic_bg"
     tools:context=".FirstActivity">
 
-    <ImageView
-        android:id="@+id/imgLogo"
+    <com.gauravk.audiovisualizer.visualizer.BarVisualizer xmlns:custom="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/bar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:src="@drawable/karaoke_icon" />
-
+        custom:avColor="@color/av_red"
+        custom:avDensity="0.5"
+        custom:avSpeed="normal"
+        custom:avType="outline"
+        custom:avWidth="4dp" />
 </LinearLayout>

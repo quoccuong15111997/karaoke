@@ -14,4 +14,9 @@
     <string name="m_b_i_h_t">Mã số:</string>
     <string name="save_online">Save online</string>
     <string name="download">Download</string>
+    <string name="save">Save</string>
+    <string name="exit">Exit</string>
+    <string name="add_favorite_songs">Add favorite songs</string>
+    <string name="phone_number">Phone number</string>
+    <string name="email">Email</string>
 </resources>

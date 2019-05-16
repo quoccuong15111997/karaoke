@@ -24,7 +24,6 @@
             android:id="@+id/txtSoBaiHat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="4 bài"
             android:layout_marginStart="@dimen/w5"
             android:layout_marginLeft="5dp"
             android:textColor="@color/text_white"

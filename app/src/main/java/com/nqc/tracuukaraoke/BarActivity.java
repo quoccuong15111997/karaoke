@@ -1,3 +1,18 @@
+/*
+        Copyright 2018 Gaurav Kumar
+
+        Licensed under the Apache License, Version 2.0 (the "License");
+        you may not use this file except in compliance with the License.
+        You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+        Unless required by applicable law or agreed to in writing, software
+        distributed under the License is distributed on an "AS IS" BASIS,
+        WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+        See the License for the specific language governing permissions and
+        limitations under the License.
+*/
 package com.nqc.tracuukaraoke;
 
 import android.content.Intent;
@@ -9,50 +24,89 @@ import android.widget.Toast;
 
 import com.gauravk.audiovisualizer.visualizer.BarVisualizer;
 import com.nqc.animation.AudioPlayer;
+import com.nqc.tracuukaraoke.R;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public class FirstActivity extends AppCompatActivity {
+
+public class BarActivity extends AppCompatActivity {
+
+    private BarVisualizer mVisualizer;
+
+    private AudioPlayer mAudioPlayer;
     public static String DATABASE_NAME = "Arirang.sqlite";
     String DB_PATH_SUFFIX = "/databases/";
     public static SQLiteDatabase database = null;
-    private BarVisualizer mVisualizer;
-    private AudioPlayer mAudioPlayer;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first);
+        doCoppyDatabse();
         mVisualizer = findViewById(R.id.bar);
         mAudioPlayer = new AudioPlayer();
-        doCoppyDatabse();
-        /*Thread timeS=new Thread(){
+        Thread timeS=new Thread(){
             public void run()
             {
                 try
                 {
-                    sleep(5000); // thoi gian chuyen quan man hinh khac
+                    sleep(3000); // thoi gian chuyen quan man hinh khac
                 } catch (Exception e) {
 
                 }
                 finally
                 {
-                   Intent intent= new Intent(FirstActivity.this,MainActivity.class);
+                   Intent intent= new Intent(BarActivity.this,MainActivity.class);
                    startActivity(intent);
                 }
             }
         };
-        timeS.start();*/
+        timeS.start();
     }
-    // ket thuc man hinh dau tien, sau khi chuyen man hinh activity
-    /*protected void onPause(){
+
+    @Override
+    protected void onPause() {
         super.onPause();
+        stopPlayingAudio();
         finish();
-    }*/
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        startPlayingAudio(R.raw.sample);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        stopPlayingAudio();
+    }
+
+    private void startPlayingAudio(int resId) {
+        mAudioPlayer.play(this, resId, new AudioPlayer.AudioPlayerEvent() {
+            @Override
+            public void onCompleted() {
+                if (mVisualizer != null)
+                    mVisualizer.hide();
+            }
+        });
+        int audioSessionId = mAudioPlayer.getAudioSessionId();
+        if (audioSessionId != -1)
+            mVisualizer.setAudioSessionId(audioSessionId);
+    }
+
+    private void stopPlayingAudio() {
+        Intent intent= new Intent(BarActivity.this,MainActivity.class);
+        startActivity(intent);
+        if (mAudioPlayer != null)
+            mAudioPlayer.stop();
+        if (mVisualizer != null)
+            mVisualizer.release();
+    }
     private void doCoppyDatabse() {
         File dbFile = getDatabasePath(DATABASE_NAME);
         if (!dbFile.exists()) {
@@ -94,36 +148,4 @@ public class FirstActivity extends AppCompatActivity {
     private String layDuongDanLuuTru() {
         return getApplicationInfo().dataDir + DB_PATH_SUFFIX + DATABASE_NAME;
     }
-    @Override
-    protected void onStart() {
-        super.onStart();
-        startPlayingAudio(R.raw.sample);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        stopPlayingAudio();
-    }
-
-    private void startPlayingAudio(int resId) {
-        mAudioPlayer.play(this, resId, new AudioPlayer.AudioPlayerEvent() {
-            @Override
-            public void onCompleted() {
-                if (mVisualizer != null)
-                    mVisualizer.hide();
-            }
-        });
-        int audioSessionId = mAudioPlayer.getAudioSessionId();
-        if (audioSessionId != -1)
-            mVisualizer.setAudioSessionId(audioSessionId);
-    }
-
-    private void stopPlayingAudio() {
-        if (mAudioPlayer != null)
-            mAudioPlayer.stop();
-        if (mVisualizer != null)
-            mVisualizer.release();
-    }
-
 }
