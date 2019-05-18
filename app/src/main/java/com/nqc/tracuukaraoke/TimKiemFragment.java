@@ -20,13 +20,18 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.nqc.adapter.SongAdapter;
+import com.nqc.impl.CharSelectedListener;
 import com.nqc.impl.ItemClick;
 import com.nqc.impl.LikeClick;
 import com.nqc.model.Song;
@@ -37,7 +42,7 @@ import java.util.ArrayList;
 public class TimKiemFragment extends Fragment {
     View view;
     EditText edtInput;
-    ImageView imgSearch;
+    ArrayAdapter<String> charAdapter;
     RecyclerView recySong;
     public static String DATABASE_NAME = "Arirang.sqlite";
     String DB_PATH_SUFFIX = "/databases/";
@@ -45,6 +50,7 @@ public class TimKiemFragment extends Fragment {
     ArrayList<Song> dsSong;
     SongAdapter songAdapter;
     DatabaseReference mData;
+    TextView txtChar;
 
     @Nullable
     @Override
@@ -68,16 +74,6 @@ public class TimKiemFragment extends Fragment {
     }
 
     private void addEvents() {
-        imgSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!edtInput.getText().toString().equals("")) {
-                    TimBaiHatTheoTenTask task = new TimBaiHatTheoTenTask();
-                    task.execute(edtInput.getText().toString());
-                } else
-                    xuLyBaiHatGoc();
-            }
-        });
         edtInput.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -95,6 +91,12 @@ public class TimKiemFragment extends Fragment {
 
             }
         });
+        txtChar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showCategoryMenu();
+            }
+        });
     }
 
     private void xuLyTimBaiHatTheoKyTu(final CharSequence s) {
@@ -103,7 +105,7 @@ public class TimKiemFragment extends Fragment {
             @Override
             public void run() {
                 TimBaiHatTheoKyTuTask task = new TimBaiHatTheoKyTuTask();
-                task.execute(s.toString());
+                task.execute(s.toString().toUpperCase());
             }
         });
     }
@@ -112,7 +114,6 @@ public class TimKiemFragment extends Fragment {
         mData = FirebaseDatabase.getInstance().getReference();
         dsSong = new ArrayList<>();
         edtInput = view.findViewById(R.id.edtInput);
-        imgSearch = view.findViewById(R.id.imgSeach);
         recySong = view.findViewById(R.id.recySong);
         recySong.setLayoutManager(new LinearLayoutManager(view.getContext()));
         recySong.addItemDecoration(new DividerItemDecoration(view.getContext(), new LinearLayoutManager(view.getContext()).getOrientation()));
@@ -136,6 +137,8 @@ public class TimKiemFragment extends Fragment {
         };
         songAdapter = new SongAdapter(view.getContext(), dsSong, itemClick, likeClick);
         recySong.setAdapter(songAdapter);
+
+        txtChar=view.findViewById(R.id.txtChar);
 
     }
 
@@ -169,109 +172,6 @@ public class TimKiemFragment extends Fragment {
         }
     }
 
-    class TimBaiHatTheoTenTask extends AsyncTask<String, Void, ArrayList<Song>> {
-        @Override
-        protected void onPostExecute(ArrayList<Song> songs) {
-            super.onPostExecute(songs);
-            if (songs.size() != 0) {
-                dsSong.clear();
-                dsSong.addAll(songs);
-                songAdapter.notifyDataSetChanged();
-            } else
-                timBaiHatTheoTacGia();
-        }
-
-        @Override
-        protected ArrayList<Song> doInBackground(String... strings) {
-            ArrayList<Song> songs = new ArrayList<>();
-            String sql = "select * from ArirangSongList where TENBH like '%" + strings[0] + "%'";
-            Cursor cursorTimTen = database.rawQuery(sql, null);
-            while (cursorTimTen.moveToNext()) {
-                String mabh = cursorTimTen.getString(0);
-                String tenbh = cursorTimTen.getString(1);
-                String loibh = cursorTimTen.getString(2);
-                String casi = cursorTimTen.getString(3);
-                int yeuthich = cursorTimTen.getInt(5);
-                Song song = new Song(mabh, tenbh, loibh, casi, yeuthich);
-                songs.add(song);
-            }
-            cursorTimTen.close();
-            return songs;
-        }
-    }
-
-    class TimBaiHatTheoMaTask extends AsyncTask<String, Void, ArrayList<Song>> {
-        @Override
-        protected void onPostExecute(ArrayList<Song> songs) {
-            super.onPostExecute(songs);
-            if (songs.size() != 0) {
-                dsSong.clear();
-                dsSong.addAll(songs);
-                songAdapter.notifyDataSetChanged();
-            } else
-                Toast.makeText(view.getContext(), "Không tìm thấy bài hát", Toast.LENGTH_LONG).show();
-        }
-
-        @Override
-        protected ArrayList<Song> doInBackground(String... strings) {
-            ArrayList<Song> songs = new ArrayList<>();
-            String sql = "select * from ArirangSongList where MABH like '%" + strings[0] + "%'";
-            Cursor cursorTimTen = database.rawQuery(sql, null);
-            while (cursorTimTen.moveToNext()) {
-                String mabh = cursorTimTen.getString(0);
-                String tenbh = cursorTimTen.getString(1);
-                String loibh = cursorTimTen.getString(2);
-                String casi = cursorTimTen.getString(3);
-                int yeuthich = cursorTimTen.getInt(5);
-                Song song = new Song(mabh, tenbh, loibh, casi, yeuthich);
-                songs.add(song);
-            }
-            cursorTimTen.close();
-            return songs;
-        }
-    }
-
-    private void timBaiHatTheoMa() {
-        TimBaiHatTheoMaTask task = new TimBaiHatTheoMaTask();
-        task.execute(edtInput.getText().toString());
-    }
-
-    class TimBaiHatTheoTacGiaTask extends AsyncTask<String, Void, ArrayList<Song>> {
-        @Override
-        protected void onPostExecute(ArrayList<Song> songs) {
-            super.onPostExecute(songs);
-            if (songs.size() != 0) {
-                dsSong.clear();
-                dsSong.addAll(songs);
-                songAdapter.notifyDataSetChanged();
-            } else
-                timBaiHatTheoMa();
-        }
-
-        @Override
-        protected ArrayList<Song> doInBackground(String... strings) {
-            ArrayList<Song> songs = new ArrayList<>();
-            String sql = "select * from ArirangSongList where TACGIA like '%" + strings[0] + "%'";
-            Cursor cursorTimTen = database.rawQuery(sql, null);
-            while (cursorTimTen.moveToNext()) {
-                String mabh = cursorTimTen.getString(0);
-                String tenbh = cursorTimTen.getString(1);
-                String loibh = cursorTimTen.getString(2);
-                String casi = cursorTimTen.getString(3);
-                int yeuthich = cursorTimTen.getInt(5);
-                Song song = new Song(mabh, tenbh, loibh, casi, yeuthich);
-                songs.add(song);
-            }
-            cursorTimTen.close();
-            return songs;
-        }
-    }
-
-    private void timBaiHatTheoTacGia() {
-        TimBaiHatTheoTacGiaTask task = new TimBaiHatTheoTacGiaTask();
-        task.execute(edtInput.getText().toString());
-    }
-
     class TimBaiHatTheoKyTuTask extends AsyncTask<String, Void, ArrayList<Song>> {
         @Override
         protected void onPostExecute(ArrayList<Song> songs) {
@@ -285,9 +185,12 @@ public class TimKiemFragment extends Fragment {
 
         @Override
         protected ArrayList<Song> doInBackground(String... strings) {
+            String s=strings[0];
             ArrayList<Song> songs = new ArrayList<>();
-            String sql = "select * from ArirangSongList where TENBH like '%" + strings[0] + "'";
-            Cursor cursorTimTen = database.rawQuery(sql, null);
+            Cursor cursorTimTen=database.query("ArirangSongList",null,
+                    "MABH like ? or TENBH like ? or TACGIA like ?",
+                    new String[]{"%"+s+"%","%"+s+"%","%"+s+"%"},
+                    null,null,null);
             while (cursorTimTen.moveToNext()) {
                 String mabh = cursorTimTen.getString(0);
                 String tenbh = cursorTimTen.getString(1);
@@ -306,6 +209,60 @@ public class TimKiemFragment extends Fragment {
         public void runOnUiThread(Runnable runnable) {
             final Handler UIHandler = new Handler(Looper.getMainLooper());
             UIHandler.post(runnable);
+        }
+    }
+    private void showCategoryMenu() {
+        final CharDropdownMenu menu = new CharDropdownMenu(view.getContext());
+        menu.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
+        menu.setWidth(getPxFromDp(200));
+        menu.setOutsideTouchable(true);
+        menu.setFocusable(true);
+        menu.showAsDropDown(txtChar);
+        menu.setCharSelectedListener(new CharSelectedListener() {
+            @Override
+            public void onCharSelected(String s) {
+                TimTheoKyTuDauTienTask task= new TimTheoKyTuDauTienTask();
+                task.execute(s);
+                txtChar.setText(s);
+                menu.dismiss();
+            }
+        });
+    }
+
+    //Convert DP to Pixel
+    private int getPxFromDp(int dp){
+        return (int) (dp * getResources().getDisplayMetrics().density);
+    }
+    class TimTheoKyTuDauTienTask extends AsyncTask<String,Void,ArrayList<Song>>{
+        @Override
+        protected void onPostExecute(ArrayList<Song> songs) {
+            super.onPostExecute(songs);
+            if (songs.size() != 0) {
+                dsSong.clear();
+                dsSong.addAll(songs);
+                songAdapter.notifyDataSetChanged();
+            }
+            else
+                xuLyBaiHatGoc();
+        }
+
+        @Override
+        protected ArrayList<Song> doInBackground(String... strings) {
+            String s=strings[0];
+            ArrayList<Song> songs = new ArrayList<>();
+            String sql="select * from ArirangSongList where TENBH like '"+s+"%'";
+            Cursor cursorTimTen=database.rawQuery(sql,null);
+            while (cursorTimTen.moveToNext()) {
+                String mabh = cursorTimTen.getString(0);
+                String tenbh = cursorTimTen.getString(1);
+                String loibh = cursorTimTen.getString(2);
+                String casi = cursorTimTen.getString(3);
+                int yeuthich = cursorTimTen.getInt(5);
+                Song song = new Song(mabh, tenbh, loibh, casi, yeuthich);
+                songs.add(song);
+            }
+            cursorTimTen.close();
+            return songs;
         }
     }
 }

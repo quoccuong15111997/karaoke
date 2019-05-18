@@ -57,7 +57,8 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recySongLike"
         android:layout_width="match_parent"
-        android:layout_height="650dp"
-        android:layout_margin="3dp"></android.support.v7.widget.RecyclerView>
+        android:layout_height="match_parent"
+        android:layout_margin="3dp"
+        android:layout_marginBottom="@dimen/pd30"></android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

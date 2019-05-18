@@ -10,23 +10,27 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorMBlue"
+        android:orientation="horizontal"
         android:outlineProvider="bounds">
         <EditText
             android:id="@+id/edtInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/w5"
             android:layout_weight="1"
+            android:layout_margin="3dp"
             android:hint="@string/hint_search_the_song_the_singer"
             android:background="@drawable/border_edittext_c"/>
-        <ImageView
-            android:id="@+id/imgSeach"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:layout_margin="@dimen/w5"
-            android:layout_toRightOf="@id/edtInput"
-            android:src="@drawable/ic_search50"/>
+       <TextView
+           android:id="@+id/txtChar"
+           android:background="@drawable/bober_item_char"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:text="All  ▼"
+           android:textSize="@dimen/sp18"
+           android:layout_margin="3dp"
+           android:textColor="@color/text_white"
+           android:gravity="center"
+           android:layout_weight="2"/>
     </LinearLayout>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recySong"
