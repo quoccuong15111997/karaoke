@@ -19,4 +19,7 @@
     <string name="add_favorite_songs">Add favorite songs</string>
     <string name="phone_number">Phone number</string>
     <string name="email">Email</string>
+    <string name="name">Name</string>
+    <string name="song">Song</string>
+    <string name="sing_online">Sing Online</string>
 </resources>

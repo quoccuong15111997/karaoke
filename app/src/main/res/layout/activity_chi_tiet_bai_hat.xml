@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/pd50"
         android:background="@color/colorMBlue"
+        android:padding="3dp"
         android:outlineProvider="bounds">
         <ImageView
             android:id="@+id/imgBack"
@@ -18,124 +19,39 @@
             android:layout_height="@dimen/pd30"
             android:layout_marginTop="@dimen/mt10"
             android:src="@drawable/ic_action_arrow_left"/>
-        <TextView
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="Thông tin bài hát"
-            android:textColor="@color/text_white"
-            android:textStyle="bold"
-            android:visibility="visible"
-            android:textSize="18sp"/>
+            android:layout_marginTop="0dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txtBaiHat"
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:layout_weight="1"
+                android:textSize="@dimen/sp18"
+                android:background="@drawable/bober_abc"
+                android:textColor="@color/text_white"
+                android:text="@string/song" />
+
+            <TextView
+                android:id="@+id/txtOnline"
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="@dimen/sp18"
+                android:textColor="@color/text_white"
+                android:textAlignment="center"
+                android:background="@drawable/bober_abc"
+                android:text="@string/sing_online" />
+        </LinearLayout>
     </RelativeLayout>
-<Button
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/border_button"
-    android:textColor="@color/text_white"
-    android:layout_margin="@dimen/mt10"
-    android:text="HÁT KARAOKE ONLINE"/>
-    <LinearLayout
+    <FrameLayout
+        android:id="@+id/containerBaiHat"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/mt10"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/m_b_i_h_t"
-            android:textSize="@dimen/pd20"
-            android:layout_weight="1"
-            android:textColor="@color/colorBlack"/>
-        <TextView
-            android:id="@+id/txtMaBH"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/m_b_i_h_t"
-            android:textSize="22dp"
-            android:layout_weight="1"
-            android:textColor="@color/colorMBlue"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/mt10"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Tên bài hát:"
-            android:textSize="@dimen/pd20"
-            android:layout_weight="1"
-            android:textColor="@color/colorBlack"/>
-        <TextView
-            android:id="@+id/txtTenBH"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Tên bài hát"
-            android:textSize="@dimen/pd20"
-            android:layout_weight="1"
-            android:textColor="@color/colorBlack"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_margin="@dimen/mt10"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Lời bài hát:"
-            android:textSize="@dimen/pd20"
-            android:layout_weight="1"
-            android:textColor="@color/colorBlack"/>
-        <TextView
-            android:id="@+id/txtLoiBH"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Lời bài hát"
-            android:textSize="@dimen/pd20"
-            android:layout_weight="1"
-            android:textColor="@color/colorBlack"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_margin="@dimen/mt10"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Ca sĩ:"
-            android:textSize="@dimen/pd20"
-            android:layout_weight="1"
-            android:textColor="@color/colorBlack"/>
-        <TextView
-            android:id="@+id/txtCaSi"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Ca sĩ"
-            android:textSize="@dimen/pd20"
-            android:layout_weight="1"
-            android:textColor="@color/colorBlack"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_margin="@dimen/mt10"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Yêu thích:"
-            android:textSize="@dimen/pd20"
-            android:layout_weight="1"
-            android:textColor="@color/colorBlack"/>
-        <ImageView
-            android:id="@+id/imgYeuThich"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@drawable/ic_heart"/>
-    </LinearLayout>
+        android:layout_height="match_parent"></FrameLayout>
 </LinearLayout>

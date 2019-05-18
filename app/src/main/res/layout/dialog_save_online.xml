@@ -20,7 +20,7 @@
         android:layout_margin="10dp"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:hint="Name"
+        android:hint="@string/name"
         android:layout_gravity="center"
         android:textColor="#000000"
         android:background="@drawable/border_edittext_c"/>

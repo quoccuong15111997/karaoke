@@ -15,9 +15,12 @@
     <string name="m_b_i_h_t">Mã bài hát</string>
     <string name="save_online">Lưu Online</string>
     <string name="download">Tải xuống</string>
-    <string name="save">Save</string>
-    <string name="exit">Exit</string>
-    <string name="add_favorite_songs">Add favorite songs</string>
-    <string name="phone_number">Phone number</string>
+    <string name="save">Lưu</string>
+    <string name="exit">Thoát</string>
+    <string name="add_favorite_songs">Thêm bài hát yêu thích</string>
+    <string name="phone_number">Số điện thoại</string>
     <string name="email">Email</string>
+    <string name="name">Họ tên</string>
+    <string name="song">Bài hát</string>
+    <string name="sing_online">Hát online</string>
 </resources>

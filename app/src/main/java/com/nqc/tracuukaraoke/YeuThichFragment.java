@@ -38,6 +38,9 @@ import com.nqc.model.Song;
 
 import java.util.ArrayList;
 
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+
 
 public class YeuThichFragment extends Fragment {
     View view;
