@@ -22,4 +22,6 @@
     <string name="name">Name</string>
     <string name="song">Song</string>
     <string name="sing_online">Sing Online</string>
+    <string name="title_activity_maps_fragment">Map</string>
+    <string name="your_current_location">Your current location</string>
 </resources>

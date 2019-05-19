@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new YeuThichFragment()).commit();
                     return true;
                 case R.id.nav_dia_diem:
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new DiaDiemFragment()).commit();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new MapsFragment()).commit();
                     return true;
                 case R.id.nav_tro_giup:
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new TroGiupFragment()).commit();

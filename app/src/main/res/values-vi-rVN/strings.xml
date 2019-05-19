@@ -23,4 +23,5 @@
     <string name="name">Họ tên</string>
     <string name="song">Bài hát</string>
     <string name="sing_online">Hát online</string>
+    <string name="your_current_location">Vị trí hiện tại của bạn</string>
 </resources>
