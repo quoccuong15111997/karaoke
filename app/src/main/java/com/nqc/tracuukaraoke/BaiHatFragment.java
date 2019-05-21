@@ -38,13 +38,13 @@ public class BaiHatFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if(song.getYeuThich()==0){
-                    imgYeuThich.setImageResource(R.drawable.ic_heart_clicked);
+                    imgYeuThich.setImageResource(R.drawable.ic_heart_clicked1);
                     song.setYeuThich(1);
                     updateDatabase(1);
                 }
                 else
                 {
-                    imgYeuThich.setImageResource(R.drawable.ic_heart);
+                    imgYeuThich.setImageResource(R.drawable.ic_heart1);
                     song.setYeuThich(0);
                     updateDatabase(0);
                 }
@@ -64,9 +64,9 @@ public class BaiHatFragment extends Fragment {
         txtLoi.setText(song.getLoiBaiHat());
         txtCasi.setText(song.getTacGia());
         if(song.getYeuThich()==0){
-            imgYeuThich.setImageResource(R.drawable.ic_heart);
+            imgYeuThich.setImageResource(R.drawable.ic_heart1);
         } else if (song.getYeuThich() == 1) {
-            imgYeuThich.setImageResource(R.drawable.ic_heart_clicked);
+            imgYeuThich.setImageResource(R.drawable.ic_heart_clicked1);
         }
 
     }
