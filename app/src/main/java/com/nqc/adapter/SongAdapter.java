@@ -46,10 +46,10 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder>{
         viewHolder.txtCaSi.setText(song.getTacGia());
         viewHolder.txtLoiBH.setText(song.getLoiBaiHat());
         if(song.getYeuThich()==1){
-            viewHolder.imgLike.setImageResource(R.drawable.ic_heart_clicked);
+            viewHolder.imgLike.setImageResource(R.drawable.ic_heart_clicked1);
         }
         else if(song.getYeuThich()==0){
-            viewHolder.imgLike.setImageResource(R.drawable.ic_heart);
+            viewHolder.imgLike.setImageResource(R.drawable.ic_heart1);
         }
     }
 
@@ -84,11 +84,11 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder>{
                public void onClick(View v) {
                    Song song=data.get(getAdapterPosition());
                    if(song.getYeuThich()==0){
-                       imgLike.setImageResource(R.drawable.ic_heart_clicked);
+                       imgLike.setImageResource(R.drawable.ic_heart_clicked1);
                        song.setYeuThich(1);
                    }
                    else if(song.getYeuThich()==1){
-                       imgLike.setImageResource(R.drawable.ic_heart);
+                       imgLike.setImageResource(R.drawable.ic_heart1);
                        song.setYeuThich(0);
                    }
                    likeClick.likeIsClicked(getAdapterPosition());

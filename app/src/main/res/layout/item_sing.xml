@@ -20,6 +20,6 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:text="Tên Video"
-        android:textColor="#282626"
-        android:textSize="18sp"/>
+        android:textColor="@color/colorBlack"
+        android:textSize="14sp"/>
 </LinearLayout>
