@@ -29,10 +29,12 @@ public class MyCustomInfoAdapter implements GoogleMap.InfoWindowAdapter {
     @Override
     public View getInfoContents(Marker marker) {
         View view=context.getLayoutInflater().inflate(R.layout.itemgoogle,null);
-        ImageView imgHinh= (ImageView) view.findViewById(R.id.imgHinh);
-        TextView txtTen= (TextView) view.findViewById(R.id.txtTen);
+        ImageView imgHinh= view.findViewById(R.id.imgHinh);
+        TextView txtTen= view.findViewById(R.id.txtTen);
+        TextView txtDiaChi=view.findViewById(R.id.txtDiaChi);
         Picasso.with(context).load(quanKaraoke.getUrlHinh()).into(imgHinh);
         txtTen.setText(quanKaraoke.getTen());
+        txtDiaChi.setText(quanKaraoke.getDiaChi());
         return view;
     }
 }

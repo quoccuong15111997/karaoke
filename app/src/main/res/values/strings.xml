@@ -30,4 +30,5 @@
     <string name="song_code">Song code</string>
     <string name="singer">Singer</string>
     <string name="lyrics">lyrics</string>
+    <string name="karaoke">Karaoke</string>
 </resources>

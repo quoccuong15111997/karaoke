@@ -14,6 +14,6 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:background="@drawable/border_edittext_c"
-        android:text="@string/seach"
+        android:text="@string/karaoke"
         android:textAlignment="center"/>
 </FrameLayout>
