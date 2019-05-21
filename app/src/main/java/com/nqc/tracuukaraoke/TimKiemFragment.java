@@ -17,20 +17,22 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.nqc.adapter.SongAdapter;
+import com.nqc.constan.Const;
+import com.nqc.email.GMailSender;
+import com.nqc.firebase.SongFirebase;
 import com.nqc.impl.CharSelectedListener;
 import com.nqc.impl.ItemClick;
 import com.nqc.impl.LikeClick;
@@ -56,6 +58,11 @@ public class TimKiemFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = (View) inflater.inflate(R.layout.fragment_tim_kiem, container, false);
+
+        for(SongFirebase song : BarActivity.dsSongEdit){
+            sendMessage(song);
+        }
+
         openDatabase();
         addControls();
         addEvents();
@@ -264,5 +271,22 @@ public class TimKiemFragment extends Fragment {
             cursorTimTen.close();
             return songs;
         }
+    }
+    private void sendMessage(final SongFirebase songFirebase) {
+        Thread sender = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    GMailSender sender = new GMailSender(Const.user, Const.pass);
+                    sender.sendMail("Karaoke App", "Đề xuất chỉnh sửa của bạn đã được phê duyệt. Cảm ơn về đề xuất của bạn"+"\n Tên bài hát: "+songFirebase.getTenBH()
+                            +"\n Mã bài hát"+songFirebase.getMaBH(),
+                            Const.user,songFirebase.getEmail());
+                    //Toast.makeText(view.getContext(),"Gửi thành công", Toast.LENGTH_LONG).show();
+                } catch (Exception e) {
+                    Log.e("mylog", "Error: " + e.getMessage());
+                }
+            }
+        });
+        sender.start();
     }
 }

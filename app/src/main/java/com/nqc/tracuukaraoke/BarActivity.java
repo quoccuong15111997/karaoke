@@ -27,13 +27,6 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.gauravk.audiovisualizer.visualizer.BarVisualizer;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -43,25 +36,12 @@ import com.nqc.animation.AudioPlayer;
 import com.nqc.firebase.QuanKaraFirebase;
 import com.nqc.firebase.SongFirebase;
 import com.nqc.model.QuanKaraoke;
-import com.nqc.tracuukaraoke.R;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Properties;
-
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-
-import static com.nqc.tracuukaraoke.ChiTietBaiHatActivity.song;
 
 
 public class BarActivity extends AppCompatActivity {
@@ -72,11 +52,13 @@ public class BarActivity extends AppCompatActivity {
     public static String DATABASE_NAME = "Arirang.sqlite";
     String DB_PATH_SUFFIX = "/databases/";
     public static SQLiteDatabase database = null;
+    public static  ArrayList<SongFirebase> dsSongEdit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first);
+        dsSongEdit= new ArrayList<>();
         doCoppyDatabse();
         DongBoDuLieuFirebaseTask task = new DongBoDuLieuFirebaseTask();
         task.execute();
@@ -237,12 +219,12 @@ public class BarActivity extends AppCompatActivity {
                     database = openOrCreateDatabase(DATABASE_NAME, MODE_PRIVATE, null);
                     SongFirebase songFirebase = dataSnapshot.getValue(SongFirebase.class);
                     if (songFirebase.getDuyet() == 1) {
-                        SendEmailTask task= new SendEmailTask();
-                        task.execute(songFirebase.getEmail());
+                        dsSongEdit.add(songFirebase);
                         String sql = "UPDATE ArirangSongList SET LOIBH = '" + songFirebase.getLoiBaiHat() + "' WHERE MABH = " + songFirebase.getMaBH();
                         database.execSQL(sql);
                         String sql1 = "UPDATE ArirangSongList SET TACGIA = '" + songFirebase.getTacGia() + "' WHERE MABH = " + songFirebase.getMaBH();
                         database.execSQL(sql1);
+                        mData.child("SongEdit").child(songFirebase.getMaBH()).child("duyet").setValue(2);
                     }
                 }
 
@@ -265,50 +247,6 @@ public class BarActivity extends AppCompatActivity {
 
                 }
             });
-            return null;
-        }
-    }
-    class SendEmailTask extends AsyncTask<String,Void,Void>{
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-        }
-
-        @Override
-        protected Void doInBackground(String... strings) {
-            final String username = "gocong360@gmail.com";
-            final String password = "Cuongngan20151";
-
-            Properties props = new Properties();
-            props.put("mail.smtp.auth", "true");
-            props.put("mail.smtp.starttls.enable", "true");
-            props.put("mail.smtp.host", "smtp.gmail.com");
-            props.put("mail.smtp.port", "587");
-
-            Session session = Session.getInstance(props,
-                    new javax.mail.Authenticator() {
-                        protected PasswordAuthentication getPasswordAuthentication() {
-                            return new PasswordAuthentication(username, password);
-                        }
-                    });
-
-            try {
-
-                Message message = new MimeMessage(session);
-                message.setFrom(new InternetAddress(username));
-                message.setRecipients(Message.RecipientType.TO,
-                        InternetAddress.parse(strings[0]));
-                message.setSubject("Testing Subject");
-                message.setText("Dear Mail Crawler,"
-                        + "\n\n No spam to my email, please!");
-
-                Transport.send(message);
-
-                System.out.println("Done");
-
-            } catch (MessagingException e) {
-                throw new RuntimeException(e);
-            }
             return null;
         }
     }
