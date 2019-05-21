@@ -24,4 +24,10 @@
     <string name="sing_online">Sing Online</string>
     <string name="title_activity_maps_fragment">Map</string>
     <string name="your_current_location">Your current location</string>
+    <string name="seach">Seach</string>
+    <string name="edit">Edit</string>
+    <string name="song_name">Song name</string>
+    <string name="song_code">Song code</string>
+    <string name="singer">Singer</string>
+    <string name="lyrics">lyrics</string>
 </resources>

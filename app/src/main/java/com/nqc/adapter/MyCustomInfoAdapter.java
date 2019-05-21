@@ -7,14 +7,16 @@ import android.widget.TextView;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.Marker;
+import com.nqc.firebase.QuanKaraFirebase;
 import com.nqc.model.QuanKaraoke;
 import com.nqc.tracuukaraoke.R;
+import com.squareup.picasso.Picasso;
 
 
 public class MyCustomInfoAdapter implements GoogleMap.InfoWindowAdapter {
     Activity context;
-    QuanKaraoke quanKaraoke;
-    public MyCustomInfoAdapter(Activity context, QuanKaraoke quanKaraoke)
+    QuanKaraFirebase quanKaraoke;
+    public MyCustomInfoAdapter(Activity context, QuanKaraFirebase quanKaraoke)
     {
         this.context=context;
         this.quanKaraoke=quanKaraoke;
@@ -29,7 +31,7 @@ public class MyCustomInfoAdapter implements GoogleMap.InfoWindowAdapter {
         View view=context.getLayoutInflater().inflate(R.layout.itemgoogle,null);
         ImageView imgHinh= (ImageView) view.findViewById(R.id.imgHinh);
         TextView txtTen= (TextView) view.findViewById(R.id.txtTen);
-        imgHinh.setImageResource(quanKaraoke.getHinh());
+        Picasso.with(context).load(quanKaraoke.getUrlHinh()).into(imgHinh);
         txtTen.setText(quanKaraoke.getTen());
         return view;
     }

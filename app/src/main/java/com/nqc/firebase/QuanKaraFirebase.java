@@ -1,26 +1,28 @@
-package com.nqc.model;
+package com.nqc.firebase;
 
 import java.io.Serializable;
+import java.io.StringReader;
 
-
-public class QuanKaraoke implements Serializable {
+public class QuanKaraFirebase implements Serializable {
     private String ten;
-    private int hinh;
+    String urlHinh;
     private String gioMoCua;
     private String diaChi;
     private double vido;
     private double kinhdo;
+    private int tonTai;
 
-    public QuanKaraoke(String ten, int hinh, String gioMoCua, String diaChi, double vido, double kinhdo) {
+    public QuanKaraFirebase(String ten, String urlHinh, String gioMoCua, String diaChi, double vido, double kinhdo, int tonTai) {
         this.ten = ten;
-        this.hinh = hinh;
+        this.urlHinh = urlHinh;
         this.gioMoCua = gioMoCua;
         this.diaChi = diaChi;
         this.vido = vido;
         this.kinhdo = kinhdo;
+        this.tonTai = tonTai;
     }
 
-    public QuanKaraoke() {
+    public QuanKaraFirebase() {
     }
 
     public String getTen() {
@@ -31,12 +33,12 @@ public class QuanKaraoke implements Serializable {
         this.ten = ten;
     }
 
-    public int getHinh() {
-        return hinh;
+    public String getUrlHinh() {
+        return urlHinh;
     }
 
-    public void setHinh(int hinh) {
-        this.hinh = hinh;
+    public void setUrlHinh(String urlHinh) {
+        this.urlHinh = urlHinh;
     }
 
     public String getGioMoCua() {
@@ -69,5 +71,13 @@ public class QuanKaraoke implements Serializable {
 
     public void setKinhdo(double kinhdo) {
         this.kinhdo = kinhdo;
+    }
+
+    public int getTonTai() {
+        return tonTai;
+    }
+
+    public void setTonTai(int tonTai) {
+        this.tonTai = tonTai;
     }
 }
