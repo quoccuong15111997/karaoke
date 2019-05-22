@@ -32,6 +32,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.nqc.constan.Const;
 import com.nqc.firebase.QuanKaraFirebase;
+import com.shashank.sony.fancytoastlib.FancyToast;
 import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
@@ -90,13 +91,13 @@ public class ThemQuanKaraokeActivity extends AppCompatActivity {
         if(!ten.equals("") && !dc.equals("") && !gio.equals("") && !kd.equals("") && !vd.equals("")){
             quanKaraFirebase= new QuanKaraFirebase(ten, Const.defaulURLImage,gio,dc,Double.parseDouble(vd),Double.parseDouble(kd),0);
             if (bitmapCamera==null){
-                Toast.makeText(ThemQuanKaraokeActivity.this,"Vui lòng thêm ảnh",Toast.LENGTH_LONG).show();
+                FancyToast.makeText(ThemQuanKaraokeActivity.this,"Vui lòng thêm ảnh",FancyToast.LENGTH_LONG,FancyToast.WARNING,true).show();
             }
             else
                 xuLyUpload();
         }
         else
-            Toast.makeText(ThemQuanKaraokeActivity.this,"Vui lòng nhập đầy đủ thông tin",Toast.LENGTH_LONG).show();
+        FancyToast.makeText(ThemQuanKaraokeActivity.this,"Vui lòng nhập đầy đủ thông tin",FancyToast.LENGTH_LONG,FancyToast.WARNING,true).show();
     }
 
     private void addControls() {
@@ -206,14 +207,7 @@ public class ThemQuanKaraokeActivity extends AppCompatActivity {
                                 //Toast.makeText(ThemQuanKaraokeActivity.this, "Lưu databse Thành công", Toast.LENGTH_SHORT).show();
                                 Picasso.with(ThemQuanKaraokeActivity.this).load(urlImage).into(imgHinh);
                                 progressDialog.dismiss();
-                                android.app.AlertDialog.Builder alertDialog= new android.app.AlertDialog.Builder(ThemQuanKaraokeActivity.this);
-                                alertDialog.setTitle("Lưu thành công, đang chờ phê duyệt");
-                                alertDialog.setIcon(R.drawable.ic_ok);
-                                alertDialog.setNegativeButton("OK",new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                    }
-                                }).show();
+                                FancyToast.makeText(ThemQuanKaraokeActivity.this,"Lưu thành công, đang chờ phê duyệt",FancyToast.LENGTH_LONG,FancyToast.SUCCESS,true).show();
                             } else {
                                  //Toast.makeText(ThemQuanKaraokeActivity.this, "Lưu dadabase thất bại", Toast.LENGTH_LONG).show();
                             }

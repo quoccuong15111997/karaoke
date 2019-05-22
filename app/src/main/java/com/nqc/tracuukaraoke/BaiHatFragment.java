@@ -21,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.nqc.firebase.SongFirebase;
 import com.nqc.impl.EditSongListener;
 import com.nqc.model.Song;
+import com.shashank.sony.fancytoastlib.FancyToast;
 
 import static com.nqc.tracuukaraoke.ChiTietBaiHatActivity.song;
 
@@ -101,9 +102,7 @@ public class BaiHatFragment extends Fragment {
                 song.getTenBH(),
                 song.getLoiBaiHat(),song.getTacGia(),song.getYeuThich(),0,email);
         mData.child("SongEdit").child(song.getMaBH()).setValue(songFirebase);
-        AlertDialog.Builder builder= new AlertDialog.Builder(view.getContext());
-        builder.setTitle("Chỉnh sửa của bạn đã được lưu lại").setMessage("Đang chờ phê duyệt").setIcon(R.drawable.ic_ok);
-        builder.show();
+        FancyToast.makeText(view.getContext(),"Chỉnh sửa của bạn đã được lưu lại",FancyToast.LENGTH_LONG,FancyToast.SUCCESS,true).show();
         dialogEditSong.dismiss();
     }
 

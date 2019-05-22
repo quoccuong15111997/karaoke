@@ -67,8 +67,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
             Marker marker= mMap.addMarker(
                     new MarkerOptions()
                             .position(latLng)
-                            .title("Hang Sơn Đoòng")
-                            .snippet("Đệ nhất sơn động"));
+                            .title("")
+                            .snippet(""));
             MyInforAdapter adapter=new MyInforAdapter(getActivity());
             mMap.setInfoWindowAdapter(adapter);
             marker.showInfoWindow();

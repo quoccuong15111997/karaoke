@@ -13,6 +13,7 @@ import com.nqc.impl.ItemClick;
 import com.nqc.impl.LikeClick;
 import com.nqc.model.Song;
 import com.nqc.tracuukaraoke.R;
+import com.shashank.sony.fancytoastlib.FancyToast;
 
 import java.util.ArrayList;
 
@@ -86,10 +87,12 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder>{
                    if(song.getYeuThich()==0){
                        imgLike.setImageResource(R.drawable.ic_heart_clicked1);
                        song.setYeuThich(1);
+                       FancyToast.makeText(context,"Bạn đã thêm "+song.getTenBH()+"\n vào yêu thích",FancyToast.LENGTH_SHORT,FancyToast.SUCCESS,true).show();
                    }
                    else if(song.getYeuThich()==1){
                        imgLike.setImageResource(R.drawable.ic_heart1);
                        song.setYeuThich(0);
+                       FancyToast.makeText(context,"Bạn đã loại "+song.getTenBH()+"\n khỏi yêu thích",FancyToast.LENGTH_SHORT,FancyToast.WARNING,true).show();
                    }
                    likeClick.likeIsClicked(getAdapterPosition());
                }

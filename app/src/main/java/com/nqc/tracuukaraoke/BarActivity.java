@@ -36,6 +36,7 @@ import com.nqc.animation.AudioPlayer;
 import com.nqc.firebase.QuanKaraFirebase;
 import com.nqc.firebase.SongFirebase;
 import com.nqc.model.QuanKaraoke;
+import com.nqc.sharedpreferences.SharedPreferencesManager;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -71,8 +72,15 @@ public class BarActivity extends AppCompatActivity {
                 } catch (Exception e) {
 
                 } finally {
-                    Intent intent = new Intent(BarActivity.this, MainActivity.class);
-                    startActivity(intent);
+                    if (SharedPreferencesManager.isFirstTimeSetup()==true){
+                        Intent intent = new Intent(BarActivity.this, FirstActivity.class);
+                        startActivity(intent);
+                    }
+                    else if (SharedPreferencesManager.isFirstTimeSetup()==false){
+                        Intent intent = new Intent(BarActivity.this, MainActivity.class);
+                        startActivity(intent);
+                    }
+                    finish();
                 }
             }
         };
@@ -112,8 +120,9 @@ public class BarActivity extends AppCompatActivity {
     }
 
     private void stopPlayingAudio() {
-        Intent intent = new Intent(BarActivity.this, MainActivity.class);
-        startActivity(intent);
+       /* Intent intent = new Intent(BarActivity.this, FirstActivity.class);
+        startActivity(intent);*/
+        finish();
         if (mAudioPlayer != null)
             mAudioPlayer.stop();
         if (mVisualizer != null)
@@ -125,11 +134,11 @@ public class BarActivity extends AppCompatActivity {
         if (!dbFile.exists()) {
             try {
                 CopyDataBaseFromAsset();
-                Toast.makeText(this, "Sao chep CSDL vao he thong thanh cong", Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, "Sao chep CSDL vao he thong thanh cong", Toast.LENGTH_LONG).show();
 
 
             } catch (Exception e) {
-                Toast.makeText(this, e.toString(), Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, e.toString(), Toast.LENGTH_LONG).show();
             }
         }
     }

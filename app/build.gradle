@@ -52,6 +52,8 @@ dependencies {
     compile files('libs/mail.jar')
     implementation 'com.google.api-client:google-api-client-gson:1.20.0'
     implementation 'com.google.apis:google-api-services-pubsub:v1-rev5-1.20.0'
+    implementation 'com.github.Shashank02051997:FancyToast-Android:0.1.6'
+    compile 'com.github.Shashank02051997:FancyWalkthrough-Android:2.1'
 }
 apply plugin: 'com.google.gms.google-services'
 com.google.gms.googleservices.GoogleServicesPlugin.config.disableVersionCheck = true
