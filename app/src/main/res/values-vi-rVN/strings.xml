@@ -31,4 +31,12 @@
     <string name="singer">Ca sĩ</string>
     <string name="lyrics">Lời bài hát</string>
     <string name="karaoke">Danh Sách Quán Karaoke</string>
+    <string name="add_karaoke">Thêm quán Karaoke</string>
+    <string name="address">Địa chỉ</string>
+    <string name="time">Thời gian mở cửa</string>
+    <string name="longitude">Kinh độ</string>
+    <string name="latitude">Vĩ độ</string>
+    <string name="title_activity_maps_fragment">Bản đồ</string>
+    <string name="name_karaoke">Tên quán Karaoke</string>
+    <string name="back">Back</string>
 </resources>

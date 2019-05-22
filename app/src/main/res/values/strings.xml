@@ -31,4 +31,11 @@
     <string name="singer">Singer</string>
     <string name="lyrics">lyrics</string>
     <string name="karaoke">Karaoke</string>
+    <string name="add_karaoke">Add Karaoke</string>
+    <string name="address">Address</string>
+    <string name="time">Time</string>
+    <string name="longitude">Longitude</string>
+    <string name="latitude">Latitude</string>
+    <string name="name_karaoke">Name Karaoke</string>
+    <string name="back">Back</string>
 </resources>

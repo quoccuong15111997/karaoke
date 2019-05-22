@@ -177,7 +177,7 @@ public class BarActivity extends AppCompatActivity {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                     QuanKaraFirebase quanKaraFirebase = dataSnapshot.getValue(QuanKaraFirebase.class);
-                    if (quanKaraFirebase.getTonTai() == 0) {
+                    if (quanKaraFirebase.getTonTai() == 1) {
                         database = openOrCreateDatabase(DATABASE_NAME, MODE_PRIVATE, null);
                         ContentValues contentValues = new ContentValues();
                         contentValues.put("TEN", quanKaraFirebase.getTen());
@@ -188,7 +188,6 @@ public class BarActivity extends AppCompatActivity {
                         contentValues.put("VIDO", quanKaraFirebase.getVido());
                         contentValues.put("TONTAI", 1);
                         database.insert("QuanKaraoke", null, contentValues);
-                        mData.child("QuanKaraoke").child(dataSnapshot.getKey()).child("tonTai").setValue(1);
                     }
                 }
 
@@ -224,7 +223,6 @@ public class BarActivity extends AppCompatActivity {
                         database.execSQL(sql);
                         String sql1 = "UPDATE ArirangSongList SET TACGIA = '" + songFirebase.getTacGia() + "' WHERE MABH = " + songFirebase.getMaBH();
                         database.execSQL(sql1);
-                        mData.child("SongEdit").child(songFirebase.getMaBH()).child("duyet").setValue(2);
                     }
                 }
 

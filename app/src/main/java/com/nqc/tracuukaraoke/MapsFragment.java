@@ -127,7 +127,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                 MyCustomInfoAdapter myCustomInfoAdapter= new MyCustomInfoAdapter(getActivity(),quanKaraoke);
                 mMap.setInfoWindowAdapter(myCustomInfoAdapter);
                 marker.showInfoWindow();
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngQuan,10));
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngQuan,15));
                 mMap.setOnMyLocationChangeListener(null);
                 menu.dismiss();
             }

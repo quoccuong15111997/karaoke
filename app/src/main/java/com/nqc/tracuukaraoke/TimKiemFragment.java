@@ -25,8 +25,6 @@ import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.nqc.adapter.SongAdapter;
@@ -51,7 +49,7 @@ public class TimKiemFragment extends Fragment {
     public static SQLiteDatabase database = null;
     ArrayList<Song> dsSong;
     SongAdapter songAdapter;
-    DatabaseReference mData;
+    DatabaseReference mData=FirebaseDatabase.getInstance().getReference();
     TextView txtChar;
 
     @Nullable
@@ -60,7 +58,10 @@ public class TimKiemFragment extends Fragment {
         view = (View) inflater.inflate(R.layout.fragment_tim_kiem, container, false);
 
         for(SongFirebase song : BarActivity.dsSongEdit){
-            sendMessage(song);
+           if(!song.getEmail().equals("")){
+               sendMessage(song);
+               mData.child("SongEdit").child(song.getMaBH()).child("email").setValue("");
+           }
         }
 
         openDatabase();
@@ -118,7 +119,6 @@ public class TimKiemFragment extends Fragment {
     }
 
     private void addControls() {
-        mData = FirebaseDatabase.getInstance().getReference();
         dsSong = new ArrayList<>();
         edtInput = view.findViewById(R.id.edtInput);
         recySong = view.findViewById(R.id.recySong);
