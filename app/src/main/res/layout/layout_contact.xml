@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorBlack"
+        android:gravity="center"
+        android:textSize="@dimen/w40"
+        android:background="@drawable/vien_contact1"
+        android:text="Liên hệ với chúng tôi qua:"/>
+
+    <TextView
+        android:id="@+id/txt_call"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="@dimen/w40"
+        android:layout_marginRight="20dp"
+        android:gravity="center"
+        android:background="@drawable/vien_contact2"
+        android:drawableLeft="@drawable/icon_phone"
+        android:drawablePadding="20dp"
+        android:text="Qua điện thoại"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/txt_send"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="@dimen/w40"
+        android:layout_marginRight="20dp"
+        android:gravity="center"
+        android:background="@drawable/vien_contact3"
+        android:drawableLeft="@drawable/icon_mail"
+        android:drawablePadding="20dp"
+        android:text="Qua tin nhắn"
+        android:textSize="20sp" />
+
+    <LinearLayout
+        android:id="@+id/lnl_send"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="20dp"
+        android:background="@drawable/vien_contact3"
+        android:layout_marginTop="0dp"
+        android:visibility="gone"
+        android:layout_marginRight="20dp">
+
+        <EditText
+            android:id="@+id/edt_send"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Viết tin nhắn...."
+            android:textColor="#000000"
+            android:textColorHint="#cccccc"
+            android:textSize="18sp" />
+        <Button
+            android:id="@+id/btn_send"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:background="#8BC34A"
+            android:textStyle="bold"
+            android:text="Gửi"/>
+
+    </LinearLayout>
+
+
+
+
+
+</LinearLayout>

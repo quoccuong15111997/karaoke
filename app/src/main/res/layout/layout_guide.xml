@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scrollbars="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:text="1. Tìm kiếm"
+                android:textSize="@dimen/pd20"
+                android:layout_gravity="center"
+                android:layout_marginRight="@dimen/w50"
+                android:layout_marginLeft="@dimen/w50"
+                android:textColor="@color/text_white"
+                android:fontFamily="sans-serif-black"
+                android:background="@drawable/vien3"/>
+
+            <TextView
+                android:layout_width="300dp"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:text="Bạn có thể tìm kiếm mã số bai hát.
+Mặc định chương trình sẽ tìm kiếm theo tên bài hát."
+                android:textSize="@dimen/pd15"
+                android:layout_marginRight="@dimen/w50"
+                android:layout_marginLeft="@dimen/w50"
+                android:textColor="@color/colorBlack"
+                android:background="@drawable/vien_trogiup"/>
+
+            <LinearLayout
+                android:layout_width="300dp"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/w50"
+                android:layout_marginLeft="@dimen/w50"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="tên bài hát: "
+                    android:textStyle="bold"
+                    android:textColor="#FF9800"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorBlack"
+                    android:text="Tìm theo tên bài hát"/>
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="300dp"
+                android:layout_height="118dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/w50"
+                android:layout_marginRight="@dimen/w50"
+                android:src="@drawable/trogiup1" />
+
+            <LinearLayout
+                android:layout_width="300dp"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/w50"
+                android:layout_marginLeft="@dimen/w50"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="tên tác giả: "
+                    android:textStyle="bold"
+                    android:textColor="#FF9800"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorBlack"
+                    android:text="Tìm theo tên tác giả hoặc ca sĩ"/>
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="300dp"
+                android:layout_height="169dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/w50"
+                android:layout_marginRight="@dimen/w50"
+                android:src="@drawable/trogiup2" />
+
+            <LinearLayout
+                android:layout_width="300dp"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/w50"
+                android:layout_marginLeft="@dimen/w50"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="mã số: "
+                    android:textStyle="bold"
+                    android:textColor="#FF9800"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorBlack"
+                    android:text="Tìm theo mã số bài hát"/>
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="300dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/w50"
+                android:layout_marginRight="@dimen/w50"
+                android:src="@drawable/trogiup3" />
+
+
+            <TextView
+                android:layout_width="300dp"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:text="2. Bài hát"
+                android:layout_marginRight="@dimen/w50"
+                android:layout_marginLeft="@dimen/w50"
+                android:textSize="@dimen/pd20"
+                android:fontFamily="sans-serif-black"
+                android:textColor="@color/text_white"
+                android:background="@drawable/vien3"/>
+
+            <TextView
+                android:layout_width="300dp"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:text="Bạn có thể lọc bài hát theo ký tự A, B, C,..."
+                android:textSize="@dimen/pd15"
+                android:layout_marginRight="@dimen/w50"
+                android:layout_marginLeft="@dimen/w50"
+                android:textColor="@color/colorBlack"
+                android:background="@drawable/vien_trogiup"/>
+
+            <ImageView
+                android:layout_width="300dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/w50"
+                android:layout_marginRight="@dimen/w50"
+                android:src="@drawable/trogiup4" />
+
+            <TextView
+                android:layout_width="300dp"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:text="3. Yêu thích"
+                android:layout_marginRight="@dimen/w50"
+                android:layout_marginLeft="@dimen/w50"
+                android:textSize="@dimen/pd20"
+                android:fontFamily="sans-serif-black"
+                android:textColor="@color/text_white"
+                android:background="@drawable/vien3"/>
+
+            <TextView
+                android:layout_width="300dp"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:text="Nơi liệt kê những bài hát mà bạn yêu thích.
+Bấm vào hình trái tim để yêu thích hoặc bỏ yêu thích một bài hát. "
+                android:textSize="@dimen/pd15"
+                android:layout_marginRight="@dimen/w50"
+                android:layout_marginLeft="@dimen/w50"
+                android:textColor="@color/colorBlack"
+                android:background="@drawable/vien_trogiup"/>
+
+            <ImageView
+                android:layout_width="300dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/w50"
+                android:layout_marginRight="@dimen/w50"
+                android:src="@drawable/trogiup5" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+
+
+</LinearLayout>
