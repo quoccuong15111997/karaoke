@@ -109,4 +109,13 @@
             android:layout_weight="1"
             android:src="@drawable/ic_heart"/>
     </LinearLayout>
+    <Button
+        android:id="@+id/btnEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/edit"
+        android:layout_margin="@dimen/mt10"
+        android:textColor="@color/text_white"
+        android:background="@drawable/bober_txt_select"
+        android:layout_gravity="end"/>
 </LinearLayout>

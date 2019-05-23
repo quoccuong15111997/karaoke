@@ -24,4 +24,19 @@
     <string name="song">Bài hát</string>
     <string name="sing_online">Hát online</string>
     <string name="your_current_location">Vị trí hiện tại của bạn</string>
+    <string name="seach">Tìm kiếm</string>
+    <string name="edit">Đề xuất chỉnh sửa</string>
+    <string name="song_name">Tên bài hát</string>
+    <string name="song_code">Mã bài hát</string>
+    <string name="singer">Ca sĩ</string>
+    <string name="lyrics">Lời bài hát</string>
+    <string name="karaoke">Danh Sách Quán Karaoke</string>
+    <string name="add_karaoke">Thêm quán Karaoke</string>
+    <string name="address">Địa chỉ</string>
+    <string name="time">Thời gian mở cửa</string>
+    <string name="longitude">Kinh độ</string>
+    <string name="latitude">Vĩ độ</string>
+    <string name="title_activity_maps_fragment">Bản đồ</string>
+    <string name="name_karaoke">Tên quán Karaoke</string>
+    <string name="back">Back</string>
 </resources>

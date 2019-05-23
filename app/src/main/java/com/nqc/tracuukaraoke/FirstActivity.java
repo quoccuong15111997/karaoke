@@ -1,129 +1,58 @@
 package com.nqc.tracuukaraoke;
 
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.widget.Toast;
 
-import com.gauravk.audiovisualizer.visualizer.BarVisualizer;
-import com.nqc.animation.AudioPlayer;
+import com.nqc.sharedpreferences.SharedPreferencesManager;
+import com.shashank.sony.fancywalkthroughlib.FancyWalkthroughActivity;
+import com.shashank.sony.fancywalkthroughlib.FancyWalkthroughCard;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
-public class FirstActivity extends AppCompatActivity {
-    public static String DATABASE_NAME = "Arirang.sqlite";
-    String DB_PATH_SUFFIX = "/databases/";
-    public static SQLiteDatabase database = null;
-    private BarVisualizer mVisualizer;
-    private AudioPlayer mAudioPlayer;
-
-
+public class FirstActivity extends FancyWalkthroughActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_first);
-        mVisualizer = findViewById(R.id.bar);
-        mAudioPlayer = new AudioPlayer();
-        doCoppyDatabse();
-        /*Thread timeS=new Thread(){
-            public void run()
-            {
-                try
-                {
-                    sleep(5000); // thoi gian chuyen quan man hinh khac
-                } catch (Exception e) {
+        FancyWalkthroughCard fancywalkthroughCard1 = new FancyWalkthroughCard("Tìm Kiếm Dễ Dàng", "Tìm kiếm mã bài hát, tên bài hát, ca sĩ... với bản cập nhật Karaoke mới nhất.",R.drawable.find_restaurant);
+        FancyWalkthroughCard fancywalkthroughCard2 = new FancyWalkthroughCard("Bài Hát yêu Thích", "Có thể lưu lại danh sách các bài hát yêu thích, đồng bộ với các thiết bị khác một cách dễ dàng",R.drawable.pickthebest);
+        FancyWalkthroughCard fancywalkthroughCard3 = new FancyWalkthroughCard("Hát Online Ngay Trên Ứng Dụng", "Có thể hát Online cực chuẩn từ kho Video khổng lồ Youtube.",R.drawable.chooseurmeal);
+        FancyWalkthroughCard fancywalkthroughCard4 = new FancyWalkthroughCard("Danh Sách Quán Karaoke", "Có thể xem danh sách các quán Karaoke, vị trí các quán Karaoke trên bản đồ ngay trên ứng dụng.",R.drawable.mealisonway);
 
-                }
-                finally
-                {
-                   Intent intent= new Intent(FirstActivity.this,MainActivity.class);
-                   startActivity(intent);
-                }
-            }
-        };
-        timeS.start();*/
+        fancywalkthroughCard1.setBackgroundColor(R.color.white);
+        fancywalkthroughCard1.setIconLayoutParams(300,300,0,0,0,0);
+        fancywalkthroughCard2.setBackgroundColor(R.color.white);
+        fancywalkthroughCard2.setIconLayoutParams(300,300,0,0,0,0);
+        fancywalkthroughCard3.setBackgroundColor(R.color.white);
+        fancywalkthroughCard3.setIconLayoutParams(300,300,0,0,0,0);
+        fancywalkthroughCard4.setBackgroundColor(R.color.white);
+        fancywalkthroughCard4.setIconLayoutParams(300,300,0,0,0,0);
+        List<FancyWalkthroughCard> pages = new ArrayList<>();
+
+        pages.add(fancywalkthroughCard1);
+        pages.add(fancywalkthroughCard2);
+        pages.add(fancywalkthroughCard3);
+        pages.add(fancywalkthroughCard4);
+
+        for (FancyWalkthroughCard page : pages) {
+            page.setTitleColor(R.color.black);
+            page.setDescriptionColor(R.color.black);
+        }
+        setFinishButtonTitle("Bắt đầu nào");
+        showNavigationControls(true);
+        setColorBackground(R.color.colorGreen);
+        //setImageBackground(R.drawable.restaurant);
+        setInactiveIndicatorColor(R.color.grey_600);
+        setActiveIndicatorColor(R.color.colorGreen);
+        setOnboardPages(pages);
+
     }
-    // ket thuc man hinh dau tien, sau khi chuyen man hinh activity
-    /*protected void onPause(){
-        super.onPause();
+
+    @Override
+    public void onFinishButtonPressed() {
+        SharedPreferencesManager.setFirstTimeSetup(false);
+        Intent intent= new Intent(getApplicationContext(),MainActivity.class);
+        startActivity(intent);
         finish();
-    }*/
-    private void doCoppyDatabse() {
-        File dbFile = getDatabasePath(DATABASE_NAME);
-        if (!dbFile.exists()) {
-            try {
-                CopyDataBaseFromAsset();
-                Toast.makeText(this, "Sao chep CSDL vao he thong thanh cong", Toast.LENGTH_LONG).show();
-
-
-            } catch (Exception e) {
-                Toast.makeText(this, e.toString(), Toast.LENGTH_LONG).show();
-            }
-        }
     }
-    private void CopyDataBaseFromAsset() {
-        try {
-            InputStream myInput = getAssets().open(DATABASE_NAME);
-            String outFileName = layDuongDanLuuTru();
-            File f = new File(getApplicationInfo().dataDir + DB_PATH_SUFFIX);
-            if (!f.exists()) {
-                f.mkdir();
-            }
-
-            OutputStream myOutput = new FileOutputStream(outFileName);
-            byte[] buffer = new byte[1024];
-            int length;
-            while ((length = myInput.read(buffer)) > 0) {
-                myOutput.write(buffer, 0, length);
-            }
-            myOutput.flush();
-            myOutput.close();
-            myInput.close();
-
-
-        } catch (Exception e) {
-            Log.e("Loi_SaoChep", e.toString());
-
-        }
-    }
-    private String layDuongDanLuuTru() {
-        return getApplicationInfo().dataDir + DB_PATH_SUFFIX + DATABASE_NAME;
-    }
-    @Override
-    protected void onStart() {
-        super.onStart();
-        startPlayingAudio(R.raw.sample);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        stopPlayingAudio();
-    }
-
-    private void startPlayingAudio(int resId) {
-        mAudioPlayer.play(this, resId, new AudioPlayer.AudioPlayerEvent() {
-            @Override
-            public void onCompleted() {
-                if (mVisualizer != null)
-                    mVisualizer.hide();
-            }
-        });
-        int audioSessionId = mAudioPlayer.getAudioSessionId();
-        if (audioSessionId != -1)
-            mVisualizer.setAudioSessionId(audioSessionId);
-    }
-
-    private void stopPlayingAudio() {
-        if (mAudioPlayer != null)
-            mAudioPlayer.stop();
-        if (mVisualizer != null)
-            mVisualizer.release();
-    }
-
 }

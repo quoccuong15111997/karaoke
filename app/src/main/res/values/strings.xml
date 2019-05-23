@@ -24,4 +24,18 @@
     <string name="sing_online">Sing Online</string>
     <string name="title_activity_maps_fragment">Map</string>
     <string name="your_current_location">Your current location</string>
+    <string name="seach">Seach</string>
+    <string name="edit">Edit</string>
+    <string name="song_name">Song name</string>
+    <string name="song_code">Song code</string>
+    <string name="singer">Singer</string>
+    <string name="lyrics">lyrics</string>
+    <string name="karaoke">Karaoke</string>
+    <string name="add_karaoke">Add Karaoke</string>
+    <string name="address">Address</string>
+    <string name="time">Time</string>
+    <string name="longitude">Longitude</string>
+    <string name="latitude">Latitude</string>
+    <string name="name_karaoke">Name Karaoke</string>
+    <string name="back">Back</string>
 </resources>

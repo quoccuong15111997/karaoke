@@ -35,6 +35,7 @@ import com.nqc.impl.ItemClick;
 import com.nqc.impl.LikeClick;
 import com.nqc.impl.SaveOnlineOnClickListener;
 import com.nqc.model.Song;
+import com.shashank.sony.fancytoastlib.FancyToast;
 
 import java.util.ArrayList;
 
@@ -139,13 +140,7 @@ public class YeuThichFragment extends Fragment {
            dsSongYeuThich.clear();
            xuLyBaiHatYeuThich();
            songAdapter.notifyDataSetChanged();
-            AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext()).setTitle("Lưu thành công").setNegativeButton("Ok", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-
-                }
-            }).setIcon(R.drawable.ic_ok);
-            builder.show();
+            FancyToast.makeText(view.getContext(),"Lưu thành công !",FancyToast.LENGTH_LONG,FancyToast.SUCCESS,true).show();
             dialogDownload.dismiss();
         }
         
@@ -166,16 +161,10 @@ public class YeuThichFragment extends Fragment {
             }
             progressDialog.dismiss();
             dialogSaveOnline.dismiss();
-            AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext()).setTitle("Lưu thành công").setNegativeButton("Ok", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-
-                }
-            }).setIcon(R.drawable.ic_ok);
-            builder.show();
+            FancyToast.makeText(view.getContext(),"Lưu thành công !",FancyToast.LENGTH_LONG,FancyToast.SUCCESS,true).show();
         }
         else
-            Toast.makeText(view.getContext(),"Bạn chưa chọn bài hát yêu thích",Toast.LENGTH_LONG).show();
+            FancyToast.makeText(view.getContext(),"Bạn chưa chọn bài hát yêu thích !",FancyToast.LENGTH_LONG,FancyToast.WARNING,true).show();
     }
 
     private void addControls() {
