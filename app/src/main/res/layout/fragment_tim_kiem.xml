@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".TimKiemFragment">
     <LinearLayout
@@ -20,23 +21,28 @@
             android:layout_margin="3dp"
             android:hint="@string/hint_search_the_song_the_singer"
             android:background="@drawable/border_edittext_c"/>
-       <TextView
-           android:id="@+id/txtChar"
-           android:background="@drawable/bober_item_char"
-           android:layout_width="match_parent"
-           android:layout_height="match_parent"
-           android:text="All  ▼"
-           android:textSize="@dimen/sp18"
-           android:layout_margin="3dp"
-           android:textColor="@color/text_white"
-           android:gravity="center"
-           android:layout_weight="2"/>
+       <ImageView
+        android:id="@+id/imgChar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/border_edittext_non_edit"
+           android:layout_margin="5dp"
+        android:src="@android:drawable/ic_menu_sort_alphabetically"/>
+        <ImageView
+            android:id="@+id/imgAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            android:background="@drawable/border_edittext_non_edit"
+            android:src="@android:drawable/ic_menu_upload"/>
     </LinearLayout>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recySong"
         android:layout_width="match_parent"
-        android:layout_margin="3dp"
-        android:layout_height="match_parent">
-    </android.support.v7.widget.RecyclerView>
+        android:layout_height="match_parent"
+        android:layout_margin="3dp"></android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

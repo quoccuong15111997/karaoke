@@ -1,6 +1,7 @@
 package com.nqc.tracuukaraoke;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -24,7 +25,14 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.api.client.googleapis.util.Utils;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.nqc.adapter.SongAdapter;
@@ -34,9 +42,15 @@ import com.nqc.firebase.SongFirebase;
 import com.nqc.impl.CharSelectedListener;
 import com.nqc.impl.ItemClick;
 import com.nqc.impl.LikeClick;
+import com.nqc.impl.SaveNewSongOnClickListener;
 import com.nqc.model.Song;
+import com.shashank.sony.fancytoastlib.FancyToast;
 
 import java.util.ArrayList;
+
+import static android.content.Context.MODE_PRIVATE;
+import static com.nqc.tracuukaraoke.BarActivity.dsNewSong;
+import static com.nqc.tracuukaraoke.TimKiemFragment.DATABASE_NAME;
 
 
 public class TimKiemFragment extends Fragment {
@@ -49,22 +63,44 @@ public class TimKiemFragment extends Fragment {
     public static SQLiteDatabase database = null;
     ArrayList<Song> dsSong;
     SongAdapter songAdapter;
-    DatabaseReference mData=FirebaseDatabase.getInstance().getReference();
-    TextView txtChar;
+    DatabaseReference mData = FirebaseDatabase.getInstance().getReference();
+    ImageView imgChar;
+    ImageView imgAdd;
+    DialogAddSong dialogAddSong;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = (View) inflater.inflate(R.layout.fragment_tim_kiem, container, false);
+        openDatabase();
+        for (SongFirebase sfe : BarActivity.dsSongEdit){
+            if (!sfe.getEmail().equals("")){
+                sendMessage(sfe);
+                mData.child("SongEdit").child(sfe.getMaBH()).child("email").setValue("");
+            }
+        }
+        for (SongFirebase sf : dsNewSong){
+            if (sf.getDuyet() == 1) {
+                Cursor cursor = database.query("ArirangSongList", null, "MABH=?", new String[]{sf.getMaBH()}, null, null, null);
+                if (cursor.moveToNext()==false) {
 
-        for(SongFirebase song : BarActivity.dsSongEdit){
-           if(!song.getEmail().equals("")){
-               sendMessage(song);
-               mData.child("SongEdit").child(song.getMaBH()).child("email").setValue("");
-           }
+                    ContentValues contentValues = new ContentValues();
+                    contentValues.put("MABH", sf.getMaBH());
+                    contentValues.put("TENBH", sf.getTenBH());
+                    contentValues.put("LOIBH", sf.getLoiBaiHat());
+                    contentValues.put("TACGIA", sf.getTacGia());
+                    contentValues.put("THELOAI", "Nhạc trẻ");
+                    contentValues.put("YEUTHICH", 0);
+                    database.insert("ArirangSongList", null, contentValues);
+                }
+            }
+            if (!sf.getEmail().equals("")){
+                sendMessage(sf);
+                sf.setEmail("");
+                mData.child("NewSong").child(sf.getMaBH()).child("email").setValue("");
+            }
         }
 
-        openDatabase();
         addControls();
         addEvents();
         Utils utils = new Utils();
@@ -78,7 +114,7 @@ public class TimKiemFragment extends Fragment {
     }
 
     private void openDatabase() {
-        database = view.getContext().openOrCreateDatabase(DATABASE_NAME, Context.MODE_PRIVATE, null);
+        database = view.getContext().openOrCreateDatabase(DATABASE_NAME, MODE_PRIVATE, null);
     }
 
     private void addEvents() {
@@ -99,12 +135,22 @@ public class TimKiemFragment extends Fragment {
 
             }
         });
-        txtChar.setOnClickListener(new View.OnClickListener() {
+        imgChar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showCategoryMenu();
             }
         });
+        imgAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                xuLyThemBaiHat();
+            }
+        });
+    }
+
+    private void xuLyThemBaiHat() {
+        dialogAddSong.show();
     }
 
     private void xuLyTimBaiHatTheoKyTu(final CharSequence s) {
@@ -145,8 +191,28 @@ public class TimKiemFragment extends Fragment {
         songAdapter = new SongAdapter(view.getContext(), dsSong, itemClick, likeClick);
         recySong.setAdapter(songAdapter);
 
-        txtChar=view.findViewById(R.id.txtChar);
+        imgChar = view.findViewById(R.id.imgChar);
+        imgAdd = view.findViewById(R.id.imgAdd);
 
+        SaveNewSongOnClickListener saveNewSongOnClickListener = new SaveNewSongOnClickListener() {
+            @Override
+            public void onSaveClick(SongFirebase songFirebase) {
+                xuLySave(songFirebase);
+            }
+        };
+        dialogAddSong = new DialogAddSong(view.getContext(), saveNewSongOnClickListener);
+    }
+
+    private void xuLySave(SongFirebase songFirebase) {
+        mData.child("NewSong").child(songFirebase.getMaBH()).setValue(songFirebase, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
+                if (databaseError == null) {
+                    FancyToast.makeText(view.getContext(), "Đã gửi yêu cầu thành công " + "\n" + "Đang chờ phê duyệt.", Toast.LENGTH_LONG, FancyToast.SUCCESS, true).show();
+                } else
+                    FancyToast.makeText(view.getContext(), "Yêu cầu thất bại, vui lòng kiểm tra và thử lại.", Toast.LENGTH_LONG, FancyToast.ERROR, true).show();
+            }
+        });
     }
 
     public void xuLyBaiHatGoc() {
@@ -192,12 +258,12 @@ public class TimKiemFragment extends Fragment {
 
         @Override
         protected ArrayList<Song> doInBackground(String... strings) {
-            String s=strings[0];
+            String s = strings[0];
             ArrayList<Song> songs = new ArrayList<>();
-            Cursor cursorTimTen=database.query("ArirangSongList",null,
+            Cursor cursorTimTen = database.query("ArirangSongList", null,
                     "MABH like ? or TENBH like ? or TACGIA like ?",
-                    new String[]{"%"+s+"%","%"+s+"%","%"+s+"%"},
-                    null,null,null);
+                    new String[]{"%" + s + "%", "%" + s + "%", "%" + s + "%"},
+                    null, null, null);
             while (cursorTimTen.moveToNext()) {
                 String mabh = cursorTimTen.getString(0);
                 String tenbh = cursorTimTen.getString(1);
@@ -218,29 +284,30 @@ public class TimKiemFragment extends Fragment {
             UIHandler.post(runnable);
         }
     }
+
     private void showCategoryMenu() {
         final CharDropdownMenu menu = new CharDropdownMenu(view.getContext());
         menu.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
         menu.setWidth(getPxFromDp(200));
         menu.setOutsideTouchable(true);
         menu.setFocusable(true);
-        menu.showAsDropDown(txtChar);
+        menu.showAsDropDown(imgChar);
         menu.setCharSelectedListener(new CharSelectedListener() {
             @Override
             public void onCharSelected(String s) {
-                TimTheoKyTuDauTienTask task= new TimTheoKyTuDauTienTask();
+                TimTheoKyTuDauTienTask task = new TimTheoKyTuDauTienTask();
                 task.execute(s);
-                txtChar.setText(s);
                 menu.dismiss();
             }
         });
     }
 
     //Convert DP to Pixel
-    private int getPxFromDp(int dp){
+    private int getPxFromDp(int dp) {
         return (int) (dp * getResources().getDisplayMetrics().density);
     }
-    class TimTheoKyTuDauTienTask extends AsyncTask<String,Void,ArrayList<Song>>{
+
+    class TimTheoKyTuDauTienTask extends AsyncTask<String, Void, ArrayList<Song>> {
         @Override
         protected void onPostExecute(ArrayList<Song> songs) {
             super.onPostExecute(songs);
@@ -248,17 +315,16 @@ public class TimKiemFragment extends Fragment {
                 dsSong.clear();
                 dsSong.addAll(songs);
                 songAdapter.notifyDataSetChanged();
-            }
-            else
+            } else
                 xuLyBaiHatGoc();
         }
 
         @Override
         protected ArrayList<Song> doInBackground(String... strings) {
-            String s=strings[0];
+            String s = strings[0];
             ArrayList<Song> songs = new ArrayList<>();
-            String sql="select * from ArirangSongList where TENBH like '"+s+"%'";
-            Cursor cursorTimTen=database.rawQuery(sql,null);
+            String sql = "select * from ArirangSongList where TENBH like '" + s + "%'";
+            Cursor cursorTimTen = database.rawQuery(sql, null);
             while (cursorTimTen.moveToNext()) {
                 String mabh = cursorTimTen.getString(0);
                 String tenbh = cursorTimTen.getString(1);
@@ -272,15 +338,16 @@ public class TimKiemFragment extends Fragment {
             return songs;
         }
     }
+
     private void sendMessage(final SongFirebase songFirebase) {
         Thread sender = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
                     GMailSender sender = new GMailSender(Const.user, Const.pass);
-                    sender.sendMail("Karaoke App", "Đề xuất chỉnh sửa của bạn đã được phê duyệt. Cảm ơn về đề xuất của bạn"+"\n Tên bài hát: "+songFirebase.getTenBH()
-                            +"\n Mã bài hát"+songFirebase.getMaBH(),
-                            Const.user,songFirebase.getEmail());
+                    sender.sendMail("Karaoke App", "Đề xuất chỉnh sửa của bạn đã được phê duyệt. Cảm ơn về đề xuất của bạn" + "\n Tên bài hát: " + songFirebase.getTenBH()
+                                    + "\n Mã bài hát: " + songFirebase.getMaBH(),
+                            Const.user, songFirebase.getEmail());
                     //Toast.makeText(view.getContext(),"Gửi thành công", Toast.LENGTH_LONG).show();
                 } catch (Exception e) {
                     Log.e("mylog", "Error: " + e.getMessage());

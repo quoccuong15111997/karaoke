@@ -7,18 +7,22 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.nqc.impl.DownloadOnClickListener;
 import com.nqc.impl.SaveOnlineOnClickListener;
+import com.shashank.sony.fancytoastlib.FancyToast;
 
 public class DialogDownload extends Dialog {
     public DialogDownload(Context context, DownloadOnClickListener downloadOnClickListener) {
         super(context);
       this.downloadOnClickListener=downloadOnClickListener;
+      this.context=context;
     }
 
 
     DownloadOnClickListener downloadOnClickListener;
+    Context context;
 
 
     @Override
@@ -34,7 +38,11 @@ public class DialogDownload extends Dialog {
 
             @Override
             public void onClick(View arg0) {
-               downloadOnClickListener.onButtonClick(edtEmail.getText().toString(),edtPhone.getText().toString());
+               if (!edtEmail.getText().toString().equals("") && !edtPhone.getText().toString().equals("")){
+                   downloadOnClickListener.onButtonClick(edtEmail.getText().toString(),edtPhone.getText().toString());
+               }
+               else
+                   FancyToast.makeText(context,"Vui lòng nhập đầy đủ thông tin.", Toast.LENGTH_LONG,FancyToast.WARNING,true).show();
             }
         });
         Button btnHuy=findViewById(R.id.btnHuyDown);

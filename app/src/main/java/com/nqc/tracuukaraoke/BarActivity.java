@@ -17,6 +17,7 @@ package com.nqc.tracuukaraoke;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -36,6 +37,7 @@ import com.nqc.animation.AudioPlayer;
 import com.nqc.firebase.QuanKaraFirebase;
 import com.nqc.firebase.SongFirebase;
 import com.nqc.model.QuanKaraoke;
+import com.nqc.model.Song;
 import com.nqc.sharedpreferences.SharedPreferencesManager;
 
 import java.io.File;
@@ -54,6 +56,8 @@ public class BarActivity extends AppCompatActivity {
     String DB_PATH_SUFFIX = "/databases/";
     public static SQLiteDatabase database = null;
     public static  ArrayList<SongFirebase> dsSongEdit;
+    public static  ArrayList<SongFirebase> dsNewSong;
+    ArrayList<String> dsKEY=new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +67,9 @@ public class BarActivity extends AppCompatActivity {
         doCoppyDatabse();
         DongBoDuLieuFirebaseTask task = new DongBoDuLieuFirebaseTask();
         task.execute();
+        //upDatesong();
+        capNhatBaiHatMoi();
+
         mVisualizer = findViewById(R.id.bar);
         mAudioPlayer = new AudioPlayer();
         Thread timeS = new Thread() {
@@ -256,5 +263,35 @@ public class BarActivity extends AppCompatActivity {
             });
             return null;
         }
+    }
+    private void capNhatBaiHatMoi() {
+        dsNewSong = new ArrayList<>();
+        mData.child("NewSong").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                SongFirebase songFirebase = dataSnapshot.getValue(SongFirebase.class);
+                dsNewSong.add(songFirebase);
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 }
