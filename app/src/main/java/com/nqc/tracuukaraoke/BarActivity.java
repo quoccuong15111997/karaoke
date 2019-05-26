@@ -31,11 +31,15 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.gauravk.audiovisualizer.visualizer.BarVisualizer;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.nqc.animation.AudioPlayer;
 import com.nqc.firebase.QuanKaraFirebase;
 import com.nqc.firebase.SongFirebase;
@@ -61,12 +65,14 @@ public class BarActivity extends AppCompatActivity {
     public static  ArrayList<SongFirebase> dsSongEdit;
     public static  ArrayList<SongFirebase> dsNewSong;
     ArrayList<String> dsKEY=new ArrayList<>();
+    private static final String TAG = "BarActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first);
         initPermission();
+        initFCM();
         dsSongEdit= new ArrayList<>();
         doCoppyDatabse();
         DongBoDuLieuFirebaseTask task = new DongBoDuLieuFirebaseTask();
@@ -96,6 +102,24 @@ public class BarActivity extends AppCompatActivity {
             }
         };
         timeS.start();
+    }
+
+    private void initFCM() {
+        String token = FirebaseInstanceId.getInstance().getToken();
+        Log.d(TAG, "Token: " + token);
+
+        FirebaseMessaging.getInstance().subscribeToTopic("ThongBao")
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        String msg = "Đăng ký thành công";
+                        if (!task.isSuccessful()) {
+                            msg = "Đăng ký thất bại";
+                        }
+                        Log.d(TAG, msg);
+                        //Toast.makeText(LoginActivity.this, msg, Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     @Override

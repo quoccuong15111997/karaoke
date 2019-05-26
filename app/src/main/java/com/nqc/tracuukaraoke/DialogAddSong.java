@@ -48,6 +48,7 @@ public class DialogAddSong extends Dialog {
                             edtLoi.getText().toString(),
                             edtCaSi.getText().toString(),
                             0,0,edtEmail.getText().toString()));
+                    dismiss();
                 }
                 else
                     FancyToast.makeText(context,"Vui lòng nhập đầy đủ thông tin.", Toast.LENGTH_LONG,FancyToast.WARNING,true).show();

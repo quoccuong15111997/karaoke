@@ -38,7 +38,7 @@ public class DialogSaveOnline extends Dialog {
 
             @Override
             public void onClick(View arg0) {
-                if (!edtEmail.getText().equals("") && !edtPhone.getText().equals("") && !edttName.getText().equals("")){
+                if (!edtEmail.getText().toString().equals("") && !edtPhone.getText().toString().equals("") && !edttName.getText().toString().equals("")){
                     saveOnlineOnClickListener.onButtonClick(edttName.getText().toString(),
                             edtEmail.getText().toString(),
                             edtPhone.getText().toString());

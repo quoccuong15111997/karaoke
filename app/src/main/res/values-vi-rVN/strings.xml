@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">TraCuuKaraoke</string>
+    <string name="app_name">Tra Cứu Bài Hát Karaoke</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
@@ -38,6 +38,6 @@
     <string name="latitude">Vĩ độ</string>
     <string name="title_activity_maps_fragment">Bản đồ</string>
     <string name="name_karaoke">Tên quán Karaoke</string>
-    <string name="back">Back</string>
-    <string name="add_song">Add Song</string>
+    <string name="back">Trở về</string>
+    <string name="add_song">Thêm bài hát mới</string>
 </resources>

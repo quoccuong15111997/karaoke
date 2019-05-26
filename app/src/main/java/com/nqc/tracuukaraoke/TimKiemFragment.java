@@ -38,6 +38,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.nqc.adapter.SongAdapter;
 import com.nqc.constan.Const;
 import com.nqc.email.GMailSender;
+import com.nqc.fcm.SendNotification;
 import com.nqc.firebase.SongFirebase;
 import com.nqc.impl.CharSelectedListener;
 import com.nqc.impl.ItemClick;
@@ -82,7 +83,7 @@ public class TimKiemFragment extends Fragment {
         for (SongFirebase sf : dsNewSong){
             if (sf.getDuyet() == 1) {
                 Cursor cursor = database.query("ArirangSongList", null, "MABH=?", new String[]{sf.getMaBH()}, null, null, null);
-                if (cursor.moveToNext()==false) {
+                if (cursor.moveToNext() == false) {
 
                     ContentValues contentValues = new ContentValues();
                     contentValues.put("MABH", sf.getMaBH());
@@ -93,11 +94,13 @@ public class TimKiemFragment extends Fragment {
                     contentValues.put("YEUTHICH", 0);
                     database.insert("ArirangSongList", null, contentValues);
                 }
-            }
-            if (!sf.getEmail().equals("")){
-                sendMessage(sf);
-                sf.setEmail("");
-                mData.child("NewSong").child(sf.getMaBH()).child("email").setValue("");
+                if (!sf.getEmail().equals("")) {
+                    sendMessage(sf);
+                    SendNotification sendNotification = new SendNotification(sf, view.getContext());
+                    sendNotification.send();
+                    sf.setEmail("");
+                    mData.child("NewSong").child(sf.getMaBH()).child("email").setValue("");
+                }
             }
         }
 

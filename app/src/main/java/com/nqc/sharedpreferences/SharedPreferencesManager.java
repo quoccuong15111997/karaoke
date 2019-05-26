@@ -30,5 +30,4 @@ public class SharedPreferencesManager {
     public static boolean isFirstTimeSetup() {
         return sPreferences.getBoolean(PREF_FIRST_TIME_SETUP, true);
     }
-
 }
