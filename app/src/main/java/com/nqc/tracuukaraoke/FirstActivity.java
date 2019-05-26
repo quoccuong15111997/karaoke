@@ -14,10 +14,11 @@ public class FirstActivity extends FancyWalkthroughActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FancyWalkthroughCard fancywalkthroughCard1 = new FancyWalkthroughCard("Tìm Kiếm Dễ Dàng", "Tìm kiếm mã bài hát, tên bài hát, ca sĩ... với bản cập nhật Karaoke mới nhất.",R.drawable.find_restaurant);
-        FancyWalkthroughCard fancywalkthroughCard2 = new FancyWalkthroughCard("Bài Hát yêu Thích", "Có thể lưu lại danh sách các bài hát yêu thích, đồng bộ với các thiết bị khác một cách dễ dàng",R.drawable.pickthebest);
-        FancyWalkthroughCard fancywalkthroughCard3 = new FancyWalkthroughCard("Hát Online Ngay Trên Ứng Dụng", "Có thể hát Online cực chuẩn từ kho Video khổng lồ Youtube.",R.drawable.chooseurmeal);
-        FancyWalkthroughCard fancywalkthroughCard4 = new FancyWalkthroughCard("Danh Sách Quán Karaoke", "Có thể xem danh sách các quán Karaoke, vị trí các quán Karaoke trên bản đồ ngay trên ứng dụng.",R.drawable.mealisonway);
+
+        FancyWalkthroughCard fancywalkthroughCard1 = new FancyWalkthroughCard("Tìm Kiếm Dễ Dàng", "Tìm kiếm mã bài hát, tên bài hát, ca sĩ... với bản cập nhật Karaoke mới nhất.",R.drawable.ic_seach_song);
+        FancyWalkthroughCard fancywalkthroughCard2 = new FancyWalkthroughCard("Bài Hát yêu Thích", "Có thể lưu lại danh sách các bài hát yêu thích, đồng bộ với các thiết bị khác một cách dễ dàng",R.drawable.ic_favorite_song);
+        FancyWalkthroughCard fancywalkthroughCard3 = new FancyWalkthroughCard("Hát Online Ngay Trên Ứng Dụng", "Có thể hát Online cực chuẩn từ kho Video khổng lồ Youtube.",R.drawable.ic_youtube_sing);
+        FancyWalkthroughCard fancywalkthroughCard4 = new FancyWalkthroughCard("Danh Sách Quán Karaoke", "Có thể xem danh sách các quán Karaoke, vị trí các quán Karaoke trên bản đồ ngay trên ứng dụng.",R.drawable.ic_maps);
 
         fancywalkthroughCard1.setBackgroundColor(R.color.white);
         fancywalkthroughCard1.setIconLayoutParams(300,300,0,0,0,0);
